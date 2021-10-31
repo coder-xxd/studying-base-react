@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Work with JSX</title>
+    <style>
+        button, a {
+            padding: 14px 60px;
+            line-height: normal;
+            font-size: 14px;
+            border: none;
+            color: #fff;
+            background-color: red;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // Muc dich tao ra object chua cac Component nen viet hoa ten object
+        const Form = {
+            Input() { //Enhanced Object literals
+                return <input type="text"/>
+            },
+            Checkbox() { // bat cu function nao cung co the lam Component
+                return <input type="checkbox"/>
+            }
+        }
+        // <Form.Checkbox /> --> cach lay Component tu object ra
+        function App() {
+            const type = 'Input';
+            const Component = Form[type] ;
+            return (
+                <div>
+                      <Component />
+                </div>
+            )
+        }
+
+        // ReactDOM.render(<App />, document.getElementById('root'))
+    </script>
+
+<!-- // DOM Events + Component -->
+    <script type="text/babel">
+       const btn = {
+           title: 'Click me!',
+           href: 'https://fullstack.edu.vn/',
+           onClick() {l
+               console.log(Math.random())
+           }
+       }
+
+       const Button= ({title, href, handleClick}) => {
+            let Component = 'button'
+            const props = {}
+
+            if (href) {
+                props.href = href
+                Component = 'a'
+            }
+            if(handleClick) {
+                props.onClick= handleClick
+            }
+            console.log(props)
+           return (
+               <Component {...props}>{title}</Component>
+           )
+       }
+        function App1() {
+           
+            return (
+                <div>
+                        <Button 
+                            title={btn.title}
+                            // href={btn.href}
+                            handleClick={btn.onClick}
+                          />
+                </div>
+            )
+        }
+
+        // ReactDOM.render(<App1 />, document.getElementById('root'))
+    </script>
+
+    <!-- Rest/Spread props -->
+    <script type="text/babel">
+    function Input({ label, ...inputProps}) {
+        return (
+            <div>
+                <label >{label} </label>
+                <input {...inputProps}/>
+            </div>
+        )
+    }
+    function App2() {
+        return (
+            <Input
+                label = 'Full name'
+                placeholder = "Enter name..."
+                onFocus= {() => {
+                    console.log(Math.random())
+                }}
+            />
+        )
+    }
+    
+    ReactDOM.render(<App2 />, document.getElementById('root'))
+    </script>
+
+    <!-- Children props -->
+    <script type="text/babel">
+        const List= ({ data, children }) => {
+            console.log(children)
+            return (
+                <ul>
+                </ul>
+            )
+        }
+
+        function App3() {
+            const cars = ['BMW', 'Honda', 'Mazda']
+            return (
+                <div>
+                    <List data={cars}>
+                        {item => <li>{item}</li>}
+                    </List>
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App3 />, document.getElementById('root'))
+    </script>
+
+    <!-- React.createElement -->
+    <script type="text/babel">
+        const ulReact = React.createElement(
+            'ul',
+            {
+                id: 'ul-id'
+            },
+            React.createElement('li', null, 'JavaScript'),
+            React.createElement('li', null, 'ReactJS'),
+        )
+    
+        const ul = (
+            <ul id='ul-id'>
+                <li>JavaScript</li>
+                <li>ReactJS</li>
+            </ul>
+        )
+
+        console.log(ulReact)
+        console.log(ul)
+
+    </script>
+
+</body>
+</html>
