@@ -4,11 +4,18 @@ import { useState } from 'react';
 
 //   ...
 // }
+const  orders = [100, 200, 300]
 
 function App() {
-  const [counter, setCounter] = useState(1)
+  const [counter, setCounter] = useState(() => {
+    const total = orders.reduce((total, cur) => total + cur)
+
+    console.log(total)
+    return total
+  })
+
   function handleIncrease() {
-    setCounter(counter + 1)
+    setCounter(prevState => prevState + 1)
   }
 
   return (
