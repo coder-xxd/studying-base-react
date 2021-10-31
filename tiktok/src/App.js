@@ -15,7 +15,7 @@ function App() {
   })
 
   function handleIncrease() {
-    setCounter(prevState => prevState + 1)
+    setCounter(counter + 1)
   }
 
   return (
